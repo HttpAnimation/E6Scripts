@@ -6,4 +6,5 @@ git clone -b main $"URL"
 cd ~/
 mv E6Scripts $"name"
 cd $"name"
+mv UserConfig.json Config.json
 echo "Done Installing"
