@@ -14,7 +14,6 @@ USER_AGENT="E621FavoritesDownloader/1.0 (by YOUR_USERNAME on e621)"
 # Perform the API request using basic authentication
 curl -u "$USER_ID:$API_KEY" \
      -A "$USER_AGENT" \
-     "$FAVORITES_URL" \
-     -o favorites_urls.json
+     "$FAVORITES_URL" | jq '[.posts[].file | {(.md5): .url}]' > favorites_urls.json
 
 echo "Downloaded JSON with favorite image URLs to favorites_urls.json"
