@@ -4,5 +4,5 @@ cd ~/
 git clone -b main $"URL"
 cd ~/
 mv E6Scripts $"name"
-cd E6S
+cd $"name"
 echo "Done Installing"
