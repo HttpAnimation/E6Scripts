@@ -18,23 +18,25 @@ while true; do
     # Make the API request
     RESPONSE=$(curl -s -A "$USER_AGENT" -u "$USER_ID:$API_KEY" "${FAVORITES_ENDPOINT}?page=$PAGE&login=$USER_ID&api_key=$API_KEY")
 
-    # Debug: Print the first item of the response to inspect its structure
-    echo "Debug Response Structure:"
-    echo "$RESPONSE" | jq '.[0]'
+    # Debug: Print the raw response to inspect its structure
+    echo "Debug Raw Response:"
+    echo "$RESPONSE"
     echo "-------------------------"
 
-    # Extract the number of posts in the response for the loop break condition
-    POST_COUNT=$(echo "$RESPONSE" | jq 'length')
-
-    # Break if there are no more favorites to process
-    if [[ "$POST_COUNT" -eq 0 ]]; then
-        echo "No more favorites to download."
-        break
+    # Determine if the response structure is as expected
+    # This is a placeholder for your adjusted jq commands
+    # For example, to check if the response is an object and has a certain key:
+    IS_VALID=$(echo "$RESPONSE" | jq 'has("posts")') # Adjust based on actual key
+    
+    # Adjust this conditional based on the structure you're expecting
+    if [[ "$IS_VALID" != "true" ]]; then
+        echo "Unexpected response structure, exiting."
+        exit 1
     fi
 
-    # Assuming the correct JSON path to file URLs is found, update the jq query accordingly
-    # This line is an example and might need to be updated based on the actual JSON structure
-    echo "$RESPONSE" | jq -r '.[].file.url' | while read -r url; do
+    # Adjusted logic to correctly parse the JSON based on its actual structure
+    # This is where you'll use the correct jq path
+    echo "$RESPONSE" | jq -r '.posts[].file.url' | while read -r url; do # Adjust '.posts[].file.url' as needed
         if [[ ! -z "$url" ]]; then
             echo "Downloading $url..."
             curl -O -s -A "$USER_AGENT" "$url"
