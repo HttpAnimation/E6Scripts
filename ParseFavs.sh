@@ -1,8 +1,11 @@
 #!/bin/bash
 
-# Replace these with your actual user ID and API key
-USER_ID="<your_user_id>"
-API_KEY="<your_api_key>"
+# Assuming Config.json is in the same directory as this script.
+CONFIG_FILE="Config.json"
+
+# Use jq to read the user ID and API key from Config.json
+USER_ID=$(jq -r '.USER_ID' $CONFIG_FILE)
+API_KEY=$(jq -r '.API_KEY' $CONFIG_FILE)
 
 # API endpoint for the user's favorites. Adjust if the API has changed.
 FAVORITES_URL="https://e621.net/users/$USER_ID/favorites.json"
