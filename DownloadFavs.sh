@@ -6,7 +6,7 @@ USER_ID=$(jq -r '.USER_ID' "$CONFIG_FILE")
 API_KEY=$(jq -r '.API_KEY' "$CONFIG_FILE")
 USER_AGENT="YourScriptName/1.0 (by $USER_ID on e621)"
 FAVORITES_ENDPOINT="https://e621.net/favorites.json"
-DOWNLOADS_FOLDER="/Users/yourusername/Downloads" # Adjust this path
+DOWNLOADS_FOLDER="~/E6Scripts/Downloads" # Adjust this path
 
 # Ensure jq is installed
 if ! command -v jq &> /dev/null; then
